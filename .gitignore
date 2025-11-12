@@ -1,0 +1,34 @@
+# Killer.sh - Git Ignore
+
+# Temporary files
+.tmp/
+*.tmp
+*.log
+
+# API responses and debug files
+last_response.json
+debug_*.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.local
+
+# Backup files
+*.bak
+*.backup
+
+# Test output
+test_results/
+coverage/
+

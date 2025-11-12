@@ -54,7 +54,7 @@ log_error() {
 cleanup() {
     if [ -n "$TMP_DIR" ] && [ -d "$TMP_DIR" ]; then
         log_info "Cleaning up temporary files..."
-        rm -rf "$TMP_DIR"
+        sudo rm -rf "$TMP_DIR"
     fi
 }
 
@@ -209,7 +209,7 @@ EOF
     # Create user data directory
     local data_dir="$actual_home/.killer"
     if [ ! -d "$data_dir" ]; then
-        mkdir -p "$data_dir/tmp"
+        sudo mkdir -p "$data_dir/tmp"
         if [ -n "$SUDO_USER" ]; then
             chown -R "$SUDO_USER:$(id -gn $SUDO_USER)" "$data_dir"
         fi
@@ -237,12 +237,12 @@ install_killer() {
     
     # Create directories
     log_info "Creating directories..."
-    mkdir -p "$BIN_DIR"
-    mkdir -p "$LIB_DIR"
+    sudo mkdir -p "$BIN_DIR"
+    sudo mkdir -p "$LIB_DIR"
     
     # Copy files
     log_info "Copying files..."
-    cp "$SCRIPT_DIR/killer.sh" "$LIB_DIR/killer.sh"
+    sudo cp "$SCRIPT_DIR/killer.sh" "$LIB_DIR/killer.sh"
     chmod +x "$LIB_DIR/killer.sh"
     
     # Copy prompts and tools (remove old directories first to ensure clean install)
@@ -250,27 +250,27 @@ install_killer() {
         # Remove old prompts directory if exists
         if [ -d "$LIB_DIR/prompts" ]; then
             log_info "Removing old prompts directory..."
-            rm -rf "$LIB_DIR/prompts"
+            sudo rm -rf "$LIB_DIR/prompts"
         fi
         log_info "Copying prompts..."
-        cp -r "$SCRIPT_DIR/prompts" "$LIB_DIR/"
+        sudo cp -r "$SCRIPT_DIR/prompts" "$LIB_DIR/"
     fi
     
     if [ -d "$SCRIPT_DIR/tools" ]; then
         # Remove old tools directory if exists
         if [ -d "$LIB_DIR/tools" ]; then
             log_info "Removing old tools directory..."
-            rm -rf "$LIB_DIR/tools"
+            sudo rm -rf "$LIB_DIR/tools"
         fi
         log_info "Copying tools..."
-        cp -r "$SCRIPT_DIR/tools" "$LIB_DIR/"
+        sudo cp -r "$SCRIPT_DIR/tools" "$LIB_DIR/"
         # Make sure all setup.sh scripts are executable
         find "$LIB_DIR/tools" -name "setup.sh" -exec chmod +x {} \;
     fi
     
     # Create wrapper script in bin directory
     log_info "Creating wrapper script..."
-    cat > "$BIN_DIR/killer" << 'EOF'
+    cat << 'EOF' | sudo tee "$BIN_DIR/killer" > /dev/null
 #!/bin/bash
 
 # Killer.sh wrapper script
@@ -287,7 +287,7 @@ export KILLER_INSTALL_DIR="$KILLER_LIB_DIR"
 exec "$KILLER_LIB_DIR/killer.sh" "$@"
 EOF
     
-    chmod +x "$BIN_DIR/killer"
+    sudo chmod +x "$BIN_DIR/killer"
     
     log_success "Installation completed!"
     echo ""
@@ -334,9 +334,6 @@ main() {
     # Check dependencies
     check_dependencies
     
-    # Check if we have write permissions
-    check_permissions
-    
     # Check if already installed
     if [ -f "$BIN_DIR/killer" ]; then
         log_warn "killer is already installed at $BIN_DIR/killer"
@@ -348,8 +345,8 @@ main() {
             exit 0
         fi
         log_info "Removing old installation..."
-        rm -rf "$LIB_DIR"
-        rm -f "$BIN_DIR/killer"
+        sudo rm -rf "$LIB_DIR"
+        sudo rm -f "$BIN_DIR/killer"
     fi
     
     # Download repository if running remotely (SCRIPT_DIR is empty or doesn't contain killer.sh)

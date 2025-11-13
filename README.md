@@ -24,6 +24,15 @@ curl -fsSL https://raw.githubusercontent.com/cwb660/killer/main/install.sh | bas
 killer "帮我评估一下系统状况生成一份报告文件给我"
 ```
 
+## 交互模式
+
+```
+# 开始交互模式
+killer -
+# 执行指令并使用交互模式
+killer - "hi"
+```
+
 ## 高级用法
 
 克隆仓库，然后定制它

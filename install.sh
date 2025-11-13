@@ -19,10 +19,9 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # GitHub repository information
-GITHUB_USER="${GITHUB_USER:-YOUR_USERNAME}"
 GITHUB_REPO="${GITHUB_REPO:-ufn-killer}"
 GITHUB_BRANCH="${GITHUB_BRANCH:-main}"
-GITHUB_RAW_URL="https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}"
+GITHUB_RAW_URL="https://raw.githubusercontent.com/CWB660/${GITHUB_REPO}/${GITHUB_BRANCH}"
 
 # Get script directory (empty if piped from curl)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" 2>/dev/null && pwd)"
@@ -108,13 +107,13 @@ download_repository() {
     log_info "Using temporary directory: $TMP_DIR"
     
     # Download the repository archive
-    local archive_url="https://github.com/${GITHUB_USER}/${GITHUB_REPO}/archive/refs/heads/${GITHUB_BRANCH}.tar.gz"
+    local archive_url="https://github.com/CWB660/${GITHUB_REPO}/archive/refs/heads/${GITHUB_BRANCH}.tar.gz"
     local archive_file="$TMP_DIR/repo.tar.gz"
     
     if ! download_file "$archive_url" "$archive_file" "repository archive"; then
         log_error "Failed to download repository"
         log_info "Please check:"
-        log_info "  1. Repository URL: https://github.com/${GITHUB_USER}/${GITHUB_REPO}"
+        log_info "  1. Repository URL: https://github.com/CWB660/${GITHUB_REPO}"
         log_info "  2. Branch name: ${GITHUB_BRANCH}"
         log_info "  3. Repository is public"
         exit 1
@@ -188,9 +187,9 @@ setup_config() {
     
     # Ask for max iterations (with default)
     echo ""
-    echo -e "${YELLOW}Enter maximum iterations (press Enter for '25'):${NC}"
+    echo -e "${YELLOW}Enter maximum iterations (press Enter for '50'):${NC}"
     read -r max_iterations
-    max_iterations="${max_iterations:-25}"
+    max_iterations="${max_iterations:-50}"
     
     # Save to .env file
     echo ""

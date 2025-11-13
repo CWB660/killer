@@ -19,8 +19,8 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # GitHub repository information
-GITHUB_USER="${GITHUB_USER:-YOUR_USERNAME}"
-GITHUB_REPO="${GITHUB_REPO:-ufn-killer}"
+GITHUB_USER="${GITHUB_USER:-cwb660}"
+GITHUB_REPO="${GITHUB_REPO:-killer}"
 GITHUB_BRANCH="${GITHUB_BRANCH:-main}"
 GITHUB_RAW_URL="https://raw.githubusercontent.com/${GITHUB_USER}/${GITHUB_REPO}/${GITHUB_BRANCH}"
 

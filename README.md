@@ -1,6 +1,6 @@
 # Killer 最轻量的Agent
 
-**注意：当前只兼容MacOS，其它系统还在兼容中...**
+**注意：仅MacOS和Linux可用**
 
 大道至简，有时候Agent就是那么简单
 

@@ -1,6 +1,6 @@
 # Killer 最轻量的Agent
 
-**注意：当前只兼容MacOS，其它系统还在兼容中...**
+**注意：仅MacOS和Linux可用**
 
 大道至简，有时候Agent就是那么简单
 
@@ -22,6 +22,15 @@ curl -fsSL https://raw.githubusercontent.com/cwb660/killer/main/install.sh | bas
 
 ```shell
 killer "帮我评估一下系统状况生成一份报告文件给我"
+```
+
+## 交互模式
+
+```
+# 开始交互模式
+killer -
+# 执行指令并使用交互模式
+killer - "hi"
 ```
 
 ## 高级用法
